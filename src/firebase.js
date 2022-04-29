@@ -2,12 +2,12 @@ import firebase from "firebase/app";
 import 'firebase/firestore'
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBbS-h2tRFGKM0ClHik5S-VakVT06MHNGM",
-  authDomain: "crud-e7296.firebaseapp.com",
-  projectId: "crud-e7296",
-  storageBucket: "crud-e7296.appspot.com",
-  messagingSenderId: "849940925310",
-  appId: "1:849940925310:web:7026eb527de4d94fb1812f"
+ apiKey: "AIzaSyAmHg0PH4s4V8zc_U8NXmquVf-WD3hjbns",
+  authDomain: "crud-5e6ed.firebaseapp.com",
+  projectId: "crud-5e6ed",
+  storageBucket: "crud-5e6ed.appspot.com",
+  messagingSenderId: "1052330145795",
+  appId: "1:1052330145795:web:78d5ccda88be3105e5b636"
 };
 
 // Initialize Firebase

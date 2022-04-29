@@ -378,8 +378,8 @@ const Formulario = () => {
           <div className="col">
             <form onSubmit={modoEdicion ? editarEquipos : guardarequipos}>
               <h6 className="card-subtitle mb-2 text-muted">Equipo</h6>
-
-              {/* <input
+              <div>
+                {/* <input
                 className="form-control mb-2 "
                 type="text"
                 placeholder="Ingrese equipo"
@@ -388,19 +388,20 @@ const Formulario = () => {
               />
               <div className="mb-3">
                 <label className="form-label">Paises:</label> */}
-              <select
-                required
-                onChange={(e) => setNombreequipo(e.target.value)}
-                value={nombreequipo}
-                className="form-select"
-              >
-                <option value=""></option>
-                {paises.map((pais, index) => (
-                  <option key={index} value={index}>
-                    {pais}
-                  </option>
-                ))}
-              </select>
+                <select
+                  required
+                  onChange={(e) => setNombreequipo(e.target.value)}
+                  value={nombreequipo}
+                  className="form-select"
+                >
+                  <option value=""></option>
+                  {paises.map((pais, index) => (
+                    <option key={index} value={index}>
+                      {pais}
+                    </option>
+                  ))}
+                </select>
+              </div>
               {/* </div> */}
               <hr></hr>
               <div className="col">
