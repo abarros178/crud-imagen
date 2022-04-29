@@ -15,7 +15,10 @@ const Formulario = () => {
   const [diferenciagoles, setDiferenciaGoles] = React.useState(0);
   const [listaequipos, setListaequipos] = React.useState([]);
   const [modoEdicion, setModoEdicion] = React.useState(false);
-  const imagen = "https://picsum.photos/300";
+  const [paises, setPaises] = React.useState([]);
+  const [codPaises, setCodPaises] = React.useState([]);
+  const [paisesFinal, setpaisesFinal] = React.useState([]);
+  const imagen = "https://picsum.photos/100/100";
   const texto_alt = "Esto es una imagen de picsum";
 
   React.useEffect(() => {
@@ -35,8 +38,18 @@ const Formulario = () => {
       }
     };
 
+    const obtenertPaises = async () =>
+      await fetch("https://flagcdn.com/es/codes.json")
+        .then((response) => response.json())
+        .then((data) => {
+          setPaises(Object.values(data));
+          setCodPaises(Object.keys(data));
+          setpaisesFinal(data);
+        });
+    obtenertPaises();
     obtenerDatos();
   });
+  console.log(paisesFinal, "final final");
 
   React.useEffect(() => {
     const partidosganadosnum = parseInt(
@@ -56,7 +69,10 @@ const Formulario = () => {
 
   const guardarequipos = async (e) => {
     e.preventDefault();
-
+    let nombreEquipoFinal = paises[nombreequipo];
+    console.log(nombreEquipoFinal, "nombre de equipo final");
+    let codigoPais = codPaises[nombreequipo];
+    console.log(codigoPais, "codigoPais final");
     if (!nombreequipo.trim()) {
       alert("Digite el nombre del equipo");
       return;
@@ -101,7 +117,8 @@ const Formulario = () => {
     try {
       const db = firebase.firestore();
       const nuevoequipo = {
-        nombreEquipo: nombreequipo,
+        nombreEquipo: nombreEquipoFinal,
+        codigoPais: codigoPais,
         Puntos: puntos,
         partidosJugados: partidosjugados,
         partidosGanados: partidosganados,
@@ -285,7 +302,8 @@ const Formulario = () => {
     setModoEdicion(false);
     setId("");
   };
-
+  // console.log(paises, "esto son los paises");
+  // console.log(codPaises, "esto son los codigos de paises");
   return (
     <div className="container mt-4">
       <h1 className="text-center font-italic">
@@ -299,6 +317,7 @@ const Formulario = () => {
               <thead>
                 <tr>
                   <th scope="col">#</th>
+                  <th scope="col"></th>
                   <th scope="col">Equipo</th>
                   <th scope="col ">Pts</th>
                   <th scope="col">PJ</th>
@@ -308,7 +327,6 @@ const Formulario = () => {
                   <th scope="col">GF</th>
                   <th scope="col">GC</th>
                   <th scope="col">DIF</th>
-                  <th scope="col">IMG</th>
                 </tr>
               </thead>
               <tbody>
@@ -317,6 +335,15 @@ const Formulario = () => {
                   .map((item, index) => (
                     <tr key={item.id}>
                       <th>{index + 1}</th>
+                      <td>
+                        {" "}
+                        <img
+                          src={`https://flagcdn.com/28x21/${item.codigoPais}.png`}
+                          width="28"
+                          height="21"
+                          alt="Argentina"
+                        />
+                      </td>
                       <td>{item.nombreEquipo}</td>
                       <td>{item.Puntos}</td>
                       <td>{item.partidosJugados}</td>
@@ -326,9 +353,6 @@ const Formulario = () => {
                       <td>{item.golesaFavor}</td>
                       <td>{item.golesContra}</td>
                       <td>{item.golesdeDiferencia}</td>
-                      <td>
-                        <img src={imagen} alt={texto_alt} />
-                      </td>
                       <td>
                         <button
                           className="btn btn-danger btn-sm float-end mx-2"
@@ -362,6 +386,25 @@ const Formulario = () => {
                 onChange={(e) => setNombreequipo(e.target.value)}
                 value={nombreequipo}
               />
+              <div className="mb-3">
+                <label className="form-label">Paises:</label>
+                <select
+                  required
+                  onChange={(e) => {
+                    setNombreequipo(e.target.value);
+                    console.log(e);
+                  }}
+                  value={nombreequipo}
+                  className="form-select"
+                >
+                  <option value=""></option>
+                  {paises.map((pais, index) => (
+                    <option key={index} value={index}>
+                      {pais}
+                    </option>
+                  ))}
+                </select>
+              </div>
               <hr></hr>
               <div className="col">
                 <h6 className="card-subtitle mb-2 text-muted">
