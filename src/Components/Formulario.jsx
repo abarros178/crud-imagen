@@ -18,8 +18,6 @@ const Formulario = () => {
   const [paises, setPaises] = React.useState([]);
   const [codPaises, setCodPaises] = React.useState([]);
   const [paisesFinal, setpaisesFinal] = React.useState([]);
-  const imagen = "https://picsum.photos/100/100";
-  const texto_alt = "Esto es una imagen de picsum";
 
   React.useEffect(() => {
     const obtenerDatos = async () => {
@@ -48,7 +46,7 @@ const Formulario = () => {
         });
     obtenertPaises();
     obtenerDatos();
-  }, [partidosjugados]);
+  }, [partidosjugados, listaequipos]);
   console.log(paisesFinal, "final final");
 
   React.useEffect(() => {
@@ -284,8 +282,8 @@ const Formulario = () => {
     try {
       const db = firebase.firestore();
       await db.collection("Listaequipos").doc(id).delete();
-      //const aux = listaequipos.filter((item) => item.id !== id);
-      //setListaequipos(aux);
+      const aux = listaequipos.filter((item) => item.id !== id);
+      setListaequipos(aux);
       //console.log(aux);
     } catch (error) {
       console.log(error);
