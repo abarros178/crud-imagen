@@ -48,7 +48,7 @@ const Formulario = () => {
         });
     obtenertPaises();
     obtenerDatos();
-  });
+  }, [partidosjugados]);
   console.log(paisesFinal, "final final");
 
   React.useEffect(() => {
@@ -228,14 +228,16 @@ const Formulario = () => {
       alert("El numero no puede ser negativo");
       return;
     }
-
+    let nombreEquipoFinal = paises[nombreequipo];
+    let codigoPais = codPaises[nombreequipo];
     try {
       const db = firebase.firestore();
       await db
         .collection("Listaequipos")
         .doc(id)
         .update({
-          nombreEquipo: nombreequipo,
+          nombreEquipo: nombreEquipoFinal,
+          codigoPais: codigoPais,
           Puntos: puntos,
           partidosJugados: partidosjugados,
           partidosGanados: partidosganados,
@@ -379,7 +381,7 @@ const Formulario = () => {
             <form onSubmit={modoEdicion ? editarEquipos : guardarequipos}>
               <h6 className="card-subtitle mb-2 text-muted">Equipo</h6>
 
-              <input
+              {/* <input
                 className="form-control mb-2 "
                 type="text"
                 placeholder="Ingrese equipo"
@@ -387,24 +389,21 @@ const Formulario = () => {
                 value={nombreequipo}
               />
               <div className="mb-3">
-                <label className="form-label">Paises:</label>
-                <select
-                  required
-                  onChange={(e) => {
-                    setNombreequipo(e.target.value);
-                    console.log(e);
-                  }}
-                  value={nombreequipo}
-                  className="form-select"
-                >
-                  <option value=""></option>
-                  {paises.map((pais, index) => (
-                    <option key={index} value={index}>
-                      {pais}
-                    </option>
-                  ))}
-                </select>
-              </div>
+                <label className="form-label">Paises:</label> */}
+              <select
+                required
+                onChange={(e) => setNombreequipo(e.target.value)}
+                value={nombreequipo}
+                className="form-select"
+              >
+                <option value=""></option>
+                {paises.map((pais, index) => (
+                  <option key={index} value={index}>
+                    {pais}
+                  </option>
+                ))}
+              </select>
+              {/* </div> */}
               <hr></hr>
               <div className="col">
                 <h6 className="card-subtitle mb-2 text-muted">
