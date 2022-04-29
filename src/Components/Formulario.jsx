@@ -15,6 +15,8 @@ const Formulario = () => {
   const [diferenciagoles, setDiferenciaGoles] = React.useState(0);
   const [listaequipos, setListaequipos] = React.useState([]);
   const [modoEdicion, setModoEdicion] = React.useState(false);
+  const imagen = "https://picsum.photos/300";
+  const texto_alt = "Esto es una imagen de picsum";
 
   React.useEffect(() => {
     const obtenerDatos = async () => {
@@ -306,6 +308,7 @@ const Formulario = () => {
                   <th scope="col">GF</th>
                   <th scope="col">GC</th>
                   <th scope="col">DIF</th>
+                  <th scope="col">IMG</th>
                 </tr>
               </thead>
               <tbody>
@@ -323,6 +326,9 @@ const Formulario = () => {
                       <td>{item.golesaFavor}</td>
                       <td>{item.golesContra}</td>
                       <td>{item.golesdeDiferencia}</td>
+                      <td>
+                        <img src={imagen} alt={texto_alt} />
+                      </td>
                       <td>
                         <button
                           className="btn btn-danger btn-sm float-end mx-2"
